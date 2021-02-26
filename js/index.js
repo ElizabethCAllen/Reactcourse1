@@ -1,6 +1,6 @@
 const getMoviesByName = async (search) => {
     const baseUrl = 'http://www.omdbapi.com/'
-    const apiKey = ''
+    const apiKey = 'beep'
     const url = '${baseUrl}/?=${apiKey}&s=${search}'
 
     const res = await fetch(url);
