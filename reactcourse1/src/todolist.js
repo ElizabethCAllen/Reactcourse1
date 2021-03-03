@@ -8,15 +8,24 @@ class ToDoList extends React.Component{
             numberofTodos: 3,
             getGreeting: ()=> "yo"
         };
-    componentDidMount(){
-        conso0le.log("hey I mounted");
+    componentDidMount() {
+        console.log("hey I mounted");
         setInterval(() => {
             this.setState({
                 currentTime: new Date().toLocaleTimeString()
             });
         }, 1000);
     }
-
+    componentDidUpdate(){
+        console.log("I am updating" );
+    }
+    componentWillUnmount(){
+        console.log("Imma go die now, bye UWU");
+    }
+    shouldComponentUpdate(){
+        console.log("hey, should I update?");
+        // supposed to return a boolean
+    }
     }
 
     render(){
