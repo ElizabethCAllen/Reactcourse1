@@ -1,7 +1,7 @@
 import React from 'react';
-import MovieCard from './MovieCard';
-import MovieDetails from './MovieDetails';
-import ListView from './ListView';
+import MovieCard from '../src/MovieCard';
+import MovieDetails from '../src/MovieDetails';
+import ListView from '../src/ListView';
 import Modal from './Modal';
 import { getMoviesByName, getMovieDetailsById } from './utils';
 
