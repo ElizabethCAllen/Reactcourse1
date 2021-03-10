@@ -1,24 +1,48 @@
-// // import  PropTypes from 'prop-types';
-// const MovieDetails = ({posterUrl, tirtle, rated, runtime, genre='unknown', rating='0', plot, actors}) => {
-//     return(
-//         <div>
-//             <Image source={props.posterUrl} style={} />
-//             <p> {props.title}</p>
-//             <p> {props.rated}</p>
-//             <p> {propss.runtime}</p>
-//             <p> {props.genre}</p>
-//             <p> {props.rating} /10</p>
-//             <p><strong> Plot</strong>
-//             <p> {props.plot} </p>           
-//             <p> {props.actors}</p>
+// import PropTypes from 'prop-types';
 
-//         </div>
-//     );
+const MovieDetails = ( { posterUrl, title, rated, runtime, genre = 'Unknown', rating = 0, plot, actors } ) => {
+    return (
+        <div className="movie-details">
+            <div className="poster">
+                <img src={posterUrl} />
+            </div>
+            <div>
+                <div className="header">
+                    <p className="title">{title}</p>
+                    <p className="rating">{rating ?? 'N/A'}</p>
+                </div>
+                <ul>
+                    <li>{runtime} min</li>
+                    <li>{rated}</li>
+                    <li>{genre}</li>
+                </ul>
+                <div className="info-section">
+                    <p className="title">Plot</p>
+                    <p>{plot}</p>
+                </div>
+                <div className="info-section">
+                    <p className="title">Actors</p>
+                    <p>{actors}</p>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// MovieDetails.propTypes = {
+//     posterUrl: PropTypes.string.isRequired,
+//     title: PropTypes.string.isRequired,
+//     rated: PropTypes.string.isRequired,
+//     runtime: PropTypes.number.isRequired,
+//     genre: PropTypes.string.isRequired,
+//     rating: PropTypes.number.isRequired,
+//     plot: PropTypes.string.isRequired,
+//     actors: PropTypes.string.isRequired,
 // }
-// {/* export default MovieDetails; */}
-// {/* MovieDetails.propTypes */}
-// {/* 
+
 // MovieDetails.defaultProps = {
-//     rating:0,
-//     genre: unknown,
-// } */}
+//     rating: 0,
+//     genre: 'Unknown'
+// }
+
+export default MovieDetails;
