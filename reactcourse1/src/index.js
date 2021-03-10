@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+console.log(
+  process.env.REACT_APP_MY_FAV_COLOR
+);
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

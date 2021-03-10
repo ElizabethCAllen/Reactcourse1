@@ -1,6 +1,6 @@
 export const getMoviesByName = async (search) => {
     const baseUrl = 'http://www.omdbapi.com'
-    const apiKey = 'ADD YOUR API KEY HERE'
+    const apiKey = process.env.REACT_APP_OMDB_API_KEY;
     const url = `${baseUrl}/?apikey=${apiKey}&s=${search}`
     
     const res = await fetch(url);
