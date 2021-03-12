@@ -1,8 +1,9 @@
 import React from 'react';
-import MovieCard from '../src/MovieCard';
-import MovieDetails from '../src/MovieDetails';
-import ListView from '../src/ListView';
+import MovieCard from './MovieCard';
+import MovieDetails from './MovieDetails';
+import ListView from './ListView';
 import Modal from './Modal';
+import Paginator from './Paginator';
 import { getMoviesByName, getMovieDetailsById } from './utils';
 
 class App extends React.Component {
@@ -17,15 +18,34 @@ class App extends React.Component {
       error: null,
       showModal: false,
       currentMovie: null,
+      page: 1
     }
 
     this.setModalState = this.setModalState.bind(this);
+    this.decrementPage = this.decrementPage.bind(this);
+    this.incrementPage = this.incrementPage.bind(this);
   }
 
   setModalState(show=false) {
     this.setState({
       showModal: show
     });
+  }
+
+  incrementPage() {
+    this.setState((prevState) => {
+      return {
+        page: prevState.page + 1
+      }
+    })
+  }
+
+  decrementPage() {
+    this.setState((prevState) => {
+      return {
+        page: prevState.page - 1
+      }
+    })
   }
 
   async componentDidMount() {
@@ -35,7 +55,7 @@ class App extends React.Component {
 
     setTimeout( async () => {
       try {
-        const movieData = await getMoviesByName(this.state.searchTerm)
+        const movieData = await getMoviesByName(this.state.searchTerm, this.state.page)
         this.setState({
           isLoading: false,
           movies: movieData,
@@ -52,8 +72,23 @@ class App extends React.Component {
     
   }
 
-  componentDidUpdate() {
-    console.log(this.state)
+  async componentDidUpdate(prevProps, prevState) {
+    if (prevState.page != this.state.page) {
+      try {
+        const movieData = await getMoviesByName(this.state.searchTerm, this.state.page)
+        this.setState({
+          isLoading: false,
+          movies: movieData,
+          error: null
+        })
+      } catch (error) {
+        this.setState({
+          isLoading: false,
+          movies: [],
+          error: error
+        })
+      }
+    }
   }
 
   async onMovieCardClicked(movieId) {
@@ -84,6 +119,12 @@ class App extends React.Component {
                     onClick={() => this.onMovieCardClicked(movie.imdbID)}
                   />
                 )}
+              />
+              <Paginator
+                currentPage={this.state.page}
+                numPages={ Math.ceil(this.state.movies?.totalResults / 10) }
+                onPrevPage={this.decrementPage}
+                onNextPage={this.incrementPage}
               />
               <Modal show={this.state.showModal} onClose={() => this.setModalState(false)}>
                 <MovieDetails 
